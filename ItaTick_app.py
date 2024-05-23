@@ -39,7 +39,7 @@ st.write(p)
 #df = pd.read_parquet("files/" + "240522_df_day.parquet")
 df = pd.read_parquet(p)
 df_Ita = df.loc["1301"].loc["2024-05-22 09:50:00"]
-st.dataframe(df_Ita)
+st.dataframe(df)
 
 #アップロードリスト
 # with st.expander("じぶんの銘柄リストから絞込む"):
