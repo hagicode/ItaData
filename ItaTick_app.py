@@ -16,7 +16,7 @@ st.set_page_config(layout="wide")
 
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
 
-code = st.text_input("銘柄コード")
+code = st.text_input("銘柄コード","1301")
 l_in = [s for s in l2 if code in s][0]
 
 p = pathlib.Path(l_in)
