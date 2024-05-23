@@ -36,6 +36,28 @@ p = pathlib.Path(l2[-1])
 update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
 st.write("データ更新日：" + update_date)
 
+df = pd.read_parquet("files/" + "240522_df_day.parquet")
+
+
+#アップロードリスト
+with st.expander("じぶんの銘柄リストから絞込む"):
+    st.markdown('<p style="font-family:sans-serif; color:blue; font-size: 10px;">1列目に銘柄コードが来るように記載ください。文字列は無視されます。</p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-family:sans-serif; color:blue; font-size: 10px;">活用例：四季報・株探などファンダで絞込んだリスト／自分の取引銘柄など</p>', unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("マイリストアップロード", type='csv')
+    if uploaded_file is not None:
+        upload_df = pd.read_csv(uploaded_file)
+        mycode_lists_org = upload_df.iloc[:,0]
+        mycode_lists = [int(s) for s in mycode_lists_org if is_int(s)]
+        mylist_button = st.radio("マイリストでの絞込み",    ('無', '有'), horizontal=True)
+
+        if mylist_button =='有':
+            for code in mycode_lists:
+                df_Ita = df.loc[code].loc["2024-05-22 09:50:00"]
+                st.dataframe(df_Ita,use_container_width=True)
+
+
+
+
 #screening_file = p
 #df = pd.read_excel(screening_file,sheet_name="Sheet1",index_col=0 )
 
