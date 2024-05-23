@@ -36,7 +36,8 @@ p = pathlib.Path(l2[-1])
 update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
 st.write("データ更新日：" + update_date)
 
-df = pd.read_parquet("files/" + "240522_df_day.parquet")
+#df = pd.read_parquet("files/" + "240522_df_day.parquet")
+df = pd.read_parquet(p)
 
 
 #アップロードリスト
