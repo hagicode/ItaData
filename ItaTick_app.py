@@ -38,39 +38,39 @@ col4.dataframe(df.loc["2024-05-22 09:15:00"])
 col5.dataframe(df.loc["2024-05-22 09:20:00"])
 col6.dataframe(df.loc["2024-05-22 09:25:00"])
 
-import streamlit as st
-from memory_profiler import memory_usage
-import pandas as pd
-import time
+# import streamlit as st
+# from memory_profiler import memory_usage
+# import pandas as pd
+# import time
 
-# メモリ使用状況を測定する関数
-def measure_memory(func):
-    mem_usage = memory_usage(func, interval=0.1, timeout=1)
-    return mem_usage
+# # メモリ使用状況を測定する関数
+# def measure_memory(func):
+#     mem_usage = memory_usage(func, interval=0.1, timeout=1)
+#     return mem_usage
 
 
-# データフレームを表示する関数
-def display_dataframe(df, time_str):
-    col1,col2,col3,col4,col5,col6 = st.columns(6)
-    col1.dataframe(df.loc["1301"].loc[time_str])
-    col2.dataframe(df.loc["1301"].loc[time_str])
-    col3.dataframe(df.loc["1301"].loc[time_str])
-    col4.dataframe(df.loc["1301"].loc[time_str])
-    col5.dataframe(df.loc["1301"].loc[time_str])
-    col6.dataframe(df.loc["1301"].loc[time_str])
+# # データフレームを表示する関数
+# def display_dataframe(df, time_str):
+#     col1,col2,col3,col4,col5,col6 = st.columns(6)
+#     col1.dataframe(df.loc["1301"].loc[time_str])
+#     col2.dataframe(df.loc["1301"].loc[time_str])
+#     col3.dataframe(df.loc["1301"].loc[time_str])
+#     col4.dataframe(df.loc["1301"].loc[time_str])
+#     col5.dataframe(df.loc["1301"].loc[time_str])
+#     col6.dataframe(df.loc["1301"].loc[time_str])
 
-# メモリ使用状況を測定
-mem_usage_load = measure_memory(load_dataframe)
-df = load_dataframe(file_)
+# # メモリ使用状況を測定
+# mem_usage_load = measure_memory(load_dataframe)
+# df = load_dataframe(file_)
 
-# 各時間帯のデータフレームを表示し、その都度メモリ使用状況を測定
-times = ["2024-05-22 09:00:00", "2024-05-22 09:05:00", "2024-05-22 09:10:00", "2024-05-22 09:15:00", "2024-05-22 09:20:00", "2024-05-22 09:25:00"]
-for time_str in times:
-    mem_usage_display = measure_memory(lambda: display_dataframe(df, time_str))
-    display_dataframe(df, time_str)
+# # 各時間帯のデータフレームを表示し、その都度メモリ使用状況を測定
+# times = ["2024-05-22 09:00:00", "2024-05-22 09:05:00", "2024-05-22 09:10:00", "2024-05-22 09:15:00", "2024-05-22 09:20:00", "2024-05-22 09:25:00"]
+# for time_str in times:
+#     mem_usage_display = measure_memory(lambda: display_dataframe(df, time_str))
+#     display_dataframe(df, time_str)
 
-    # メモリ使用状況を表示
-    st.line_chart(mem_usage_load + mem_usage_display)
+#     # メモリ使用状況を表示
+#     st.line_chart(mem_usage_load + mem_usage_display)
 
 #アップロードリスト
 # with st.expander("じぶんの銘柄リストから絞込む"):
