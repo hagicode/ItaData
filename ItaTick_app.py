@@ -6,10 +6,10 @@ import glob
 import pathlib
 import os
 
-@st.cache_data
-def load_dataframe(f_):
-    df = pd.read_parquet(f_)
-    return df
+#@st.cache_data
+#def load_dataframe(f_):
+#    df = pd.read_parquet(f_)
+#    return df
 
 #github
 st.set_page_config(layout="wide")
