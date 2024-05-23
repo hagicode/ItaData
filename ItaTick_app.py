@@ -7,26 +7,9 @@ import pathlib
 import os
 
 @st.cache_data
-def cache_image(img):
-    st.image(img)
-
-def clear_multi():
-    st.session_state.multiselect = []
-    st.session_state.multiselect2 = []
-    st.session_state.multiselect3 = []
-    return
-
-def clear_input():
-    st.session_state.input_txt = ""
-    return
-
-def is_int(s):
-    try:
-        int(s)
-    except ValueError:
-        return False
-    else:
-        return True
+def load_dataframe(f_):
+    df = pd.read_parquet(f_)
+    return df
 
 #github
 st.set_page_config(layout="wide")
@@ -58,10 +41,6 @@ def measure_memory(func):
     mem_usage = memory_usage(func, interval=0.1, timeout=1)
     return mem_usage
 
-# データフレームを読み込む関数
-def load_dataframe():
-    df = pd.read_parquet(p)
-    return df
 
 # データフレームを表示する関数
 def display_dataframe(df, time_str):
@@ -75,7 +54,7 @@ def display_dataframe(df, time_str):
 
 # メモリ使用状況を測定
 mem_usage_load = measure_memory(load_dataframe)
-df = load_dataframe()
+df = load_dataframe(file_)
 
 # 各時間帯のデータフレームを表示し、その都度メモリ使用状況を測定
 times = ["2024-05-22 09:00:00", "2024-05-22 09:05:00", "2024-05-22 09:10:00", "2024-05-22 09:15:00", "2024-05-22 09:20:00", "2024-05-22 09:25:00"]
