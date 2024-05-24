@@ -332,7 +332,7 @@ with col1:
     ShowedTime1 = datetime_obj - timedelta(minutes=10)
     try:
         st.write("銘柄コード：",code,"時刻",ShowedTime1)
-        st.table(ItaResize(df.loc[ShowedTime1],ItaSize_str_).style.set_table_styles(styles1).format(custom_format1).format(custom_format2))
+        st.table(ItaResize(df.loc[ShowedTime1],ItaSize_str_).style.format('<div style="text-align: right">{}</div>').set_table_styles(styles1).format(custom_format1).format(custom_format2))
         #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
     except:
         st.write("時刻データなし")
