@@ -17,17 +17,21 @@ def load_dataframe(f_):
 st.set_page_config(layout="wide")
 
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
+col1,col2,col3 = st.columns(3)
+with col1:
+    code = st.text_input("銘柄コード","1301")
+    l_in = [s for s in l2 if code in s][0]
+    p = pathlib.Path(l_in)
+    df = pd.read_parquet(p)
 
-code = st.text_input("銘柄コード","1301")
-l_in = [s for s in l2 if code in s][0]
-
-p = pathlib.Path(l_in)
-df = pd.read_parquet(p)
+with col2:
     # 文字列を日付と時間に分割
-date_str = st.text_input("日付()","240522")
-time_str = st.select_slider(
-    "板データ時刻",
-    options=["08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
+    date_str = st.text_input("日付()","240522")
+
+with col3:
+    time_str = st.select_slider(
+        "板データ時刻",
+        options=["08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
@@ -120,22 +124,43 @@ def ItaResize(df,ita_num=5):
     return df_____
 
 # style
-th_props = [
-('font-size', '14px'),
+th_props1 = [
+('font-size', '13px'),
 ('text-align', 'center'),
 ('font-weight', 'bold'),
 ('color', '#6d6d6d'),
 ('background-color', '#f7ffff')
 ]
                             
-td_props = [
-('font-size', '12px')
+td_props1 = [
+('font-size', '11px')
 ]
                                 
-styles = [
-dict(selector="th", props=th_props),
-dict(selector="td", props=td_props)
+styles1 = [
+dict(selector="th", props=th_props1),
+dict(selector="td", props=td_props1)
 ]
+
+# style
+th_props2 = [
+('font-size', '13px'),
+('text-align', 'center'),
+('font-weight', 'bold'),
+('color', '#6d6d6d'),
+('background-color', '#f7ffff')
+]
+                            
+td_props2 = [
+('font-size', '11px')
+]
+                                
+styles2 = [
+dict(selector="th", props=th_props2),
+dict(selector="td", props=td_props2)
+]
+
+
+
 
 def custom_format(x):
     return '{:.1f}'.format(x) if isinstance(x, float) else str(x)
