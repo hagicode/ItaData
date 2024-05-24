@@ -275,6 +275,9 @@ fig.update_yaxes(title_text="Buy/Sell", secondary_y=True, row=2, col=1)
 
 fig.update(layout_xaxis_rangeslider_visible=False) #追加
 
+# グラフのサイズを設定
+fig.update_layout(autosize=False, width=1000, height=500)
+
 # Streamlitでグラフを表示
 st.plotly_chart(fig)
 
