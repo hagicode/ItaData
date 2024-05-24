@@ -36,11 +36,11 @@ database = df_jpx[df_jpx["市場・商品区分"] != "ETF・ETN"]
 database_org = database.astype(str)
 
 col1_,col2_ = st.columns(2)
-with col1_:
-    DB_serch = database_org.copy()
-    DB_serch["銘柄名"] = [format_text(txt).casefold() for txt in DB_serch["銘柄名"]]
+DB_serch = database_org.copy()
+DB_serch["銘柄名"] = [format_text(txt).casefold() for txt in DB_serch["銘柄名"]]
 
-    with st.form(key='form1'):
+with st.form(key='form1'):
+    with col1_:
         st.cache_data.clear()
 
         input_txt = st.text_input('銘柄コードを入力 or 部分一致の検索', '8058')
@@ -60,11 +60,10 @@ with col1_:
             st.write(f"[・株探で確認する](https://kabutan.jp/stock/chart?code={symbols})")
     code = symbols
 
-with col2_:
-    # 文字列を日付と時間に分割
-    date_str = st.text_input("日付(yymmdd)","240522")
-
-submit = st.form_submit_button("実行")
+    with col2_:
+        # 文字列を日付と時間に分割
+        date_str = st.text_input("日付(yymmdd)","240522")
+    submit = st.form_submit_button("実行")
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
