@@ -27,16 +27,18 @@ date_str = st.text_input("日付()","240522")
 time_str = st.select_slider(
     "板データ時刻",
     options=["08:55","09:00","09:05", "09:10","09:15","09:20:00","09:25:00","09:30:00","09:35:00","09:40:00","09:45:00","09:50:00","09:55:00","10:00:00"])
-
+st.write(date_str,time_str)
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
 time = datetime.strptime(time_str, '%H%M').time()
+st.write(date,time)
 
 # 日付と時間を結合してdatetimeオブジェクトを作成
 datetime_obj = datetime.combine(date, time)
 
 st.write(datetime_obj)
+
 
 #update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
 #st.write("データ更新日：" + update_date)
