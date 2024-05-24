@@ -17,18 +17,18 @@ def load_dataframe(f_):
 st.set_page_config(layout="wide")
 
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
-col1,col2,col3 = st.columns(3)
-with col1:
+col1_,col2_,col3_ = st.columns(3)
+with col1_:
     code = st.text_input("銘柄コード","1301")
     l_in = [s for s in l2 if code in s][0]
     p = pathlib.Path(l_in)
     df = pd.read_parquet(p)
 
-with col2:
+with col2_:
     # 文字列を日付と時間に分割
     date_str = st.text_input("日付()","240522")
 
-with col3:
+with col3_:
     time_str = st.select_slider(
         "板データ時刻",
         options=["08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
