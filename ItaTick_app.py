@@ -103,23 +103,23 @@ def ItaResize(df,ita_num=5):
 col1,col2,col3,col4,col5 = st.columns(5)
 with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
-    st.write("銘柄コード："code,"時刻",ShowedTime1)
+    st.write("銘柄コード：",code,"時刻",ShowedTime1)
     st.dataframe(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 with col2:
     ShowedTime2 = "2024-05-22 09:05:00"
-    st.write("銘柄コード："code,"時刻",ShowedTime2)
+    st.write("銘柄コード：",code,"時刻",ShowedTime2)
     st.dataframe(ItaResize(df.loc[ShowedTime2]),hide_index=True, height=480)
 with col3:
     ShowedTime3 = "2024-05-22 09:10:00"
-    st.write("銘柄コード："code,"時刻",ShowedTime3)
+    st.write("銘柄コード：",code,"時刻",ShowedTime3)
     st.dataframe(ItaResize(df.loc[ShowedTime3]),hide_index=True, height=480)
 with col4:
     ShowedTime4 = "2024-05-22 09:15:00"
-    st.write("銘柄コード："code,"時刻",ShowedTime4)
+    st.write("銘柄コード：",code,"時刻",ShowedTime4)
     st.dataframe(ItaResize(df.loc[ShowedTime4]),hide_index=True, height=480)
 with col5:
     ShowedTime5 = "2024-05-22 09:20:00"
-    st.write("銘柄コード："code,"時刻",ShowedTime5)
+    st.write("銘柄コード：",code,"時刻",ShowedTime5)
     st.dataframe(ItaResize(df.loc[ShowedTime5]),hide_index=True, height=480)
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
