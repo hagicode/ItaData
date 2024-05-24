@@ -137,25 +137,25 @@ with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime1)
 
-    st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).set_precision(1))
+    st.table(ItaResize(df.loc[ShowedTime1]).style.set_precision(1).set_table_styles(styles))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
 with col2:
     ShowedTime2 = "2024-05-22 09:05:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime2)
-    st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles).set_precision(1))
+    st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles))
 with col3:
     ShowedTime3 = "2024-05-22 09:10:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
-    st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).set_precision(1))
+    st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles))
 with col4:
     ShowedTime4 = "2024-05-22 09:15:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
-    st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles).set_precision(1))
+    st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles))
 with col5:
     ShowedTime5 = "2024-05-22 09:20:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
-    st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles).set_precision(1))
+    st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles))
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
 # import streamlit as st
