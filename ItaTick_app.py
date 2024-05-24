@@ -152,13 +152,13 @@ tbody th {display:none}
 col1,col2,col3,col4,col5 = st.columns(5)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
-    ShowedTime1 = datetime_obj - timedelta(minutes=105)
+    ShowedTime1 = datetime_obj - timedelta(minutes=10)
     try:
         st.write("銘柄コード：",code,"時刻",ShowedTime1)
         st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).format(custom_format))
         #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
     except:
-        st.write("銘柄コード：",code,"時刻:","時刻データなし")
+        st.write("時刻データなし")
 
 with col2:
     try:
@@ -166,7 +166,7 @@ with col2:
         st.write("銘柄コード：",code,"時刻",ShowedTime2)
         st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles).format(custom_format))
     except:
-        st.write("銘柄コード：",code,"時刻:","時刻データなし")
+        st.write("時刻データなし")
 
 with col3:
     ShowedTime3 = datetime_obj
