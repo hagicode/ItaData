@@ -116,11 +116,19 @@ styles = [
   dict(selector="th", props=th_props),
   dict(selector="td", props=td_props)
   ]
+hide_table_row_index = """
+<style>
+thead tr th:first-child {display:none}
+tbody th {display:none}
+</style>
+"""
+
 
 col1,col2,col3,col4,col5 = st.columns(5)
 with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime1)
+    st.markdown(hide_table_row_index, unsafe_allow_html=True)
     st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
