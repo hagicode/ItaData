@@ -309,8 +309,11 @@ dict(selector="td", props=td_props2)
 
 
 
-def custom_format(x):
-    return '{:,.1f}'.format(x) if isinstance(x, float) else str(x)
+def custom_format1(x):
+    return '{:.1f}'.format(x) if isinstance(x, float) else str(x)
+def custom_format2(x):
+    return '{:,}'.format(x) if isinstance(x, int) else str(x)
+
 
 hide_table_row_index = """
 <style>
@@ -327,7 +330,7 @@ with col1:
     ShowedTime1 = datetime_obj - timedelta(minutes=10)
     try:
         st.write("銘柄コード：",code,"時刻",ShowedTime1)
-        st.table(ItaResize(df.loc[ShowedTime1],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime1],ItaSize_str_).style.set_table_styles(styles1).format(custom_format1).format(custom_format2))
         #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
     except:
         st.write("時刻データなし")
@@ -336,24 +339,24 @@ with col2:
     try:
         ShowedTime2 = datetime_obj - timedelta(minutes=5)
         st.write("銘柄コード：",code,"時刻",ShowedTime2)
-        st.table(ItaResize(df.loc[ShowedTime2],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime2],ItaSize_str_).style.set_table_styles(styles1).format(custom_format1).format(custom_format2))
     except:
         st.write("時刻データなし")
 
 with col3:
     ShowedTime3 = datetime_obj
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
-    st.table(ItaResize(df.loc[ShowedTime3],ItaSize_str_).style.set_table_styles(styles2).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime3],ItaSize_str_).style.set_table_styles(styles2).format(custom_format1).format(custom_format2))
     #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
 
 with col4:
     ShowedTime4 = datetime_obj + timedelta(minutes=5)
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
-    st.table(ItaResize(df.loc[ShowedTime4],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime4],ItaSize_str_).style.set_table_styles(styles1).format(custom_format1).format(custom_format2))
 with col5:
     ShowedTime5 = datetime_obj + timedelta(minutes=10)
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
-    st.table(ItaResize(df.loc[ShowedTime5],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime5],ItaSize_str_).style.set_table_styles(styles1).format(custom_format1).format(custom_format2))
 
 
 
