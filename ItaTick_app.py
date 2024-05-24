@@ -106,27 +106,25 @@ def ItaResize(df,ita_num=5):
     return df_____
 
 # style
-def set_style(style):
-    th_props = [
-    ('font-size', '14px'),
-    ('text-align', 'center'),
-    ('font-weight', 'bold'),
-    ('color', '#6d6d6d'),
-    ('background-color', '#f7ffff')
-    ]
+th_props = [
+('font-size', '14px'),
+('text-align', 'center'),
+('font-weight', 'bold'),
+('color', '#6d6d6d'),
+('background-color', '#f7ffff')
+]
+                            
+td_props = [
+('font-size', '12px')
+]
                                 
-    td_props = [
-    ('font-size', '12px')
-    ]
-                                    
-    styles = [
-    dict(selector="th", props=th_props),
-    dict(selector="td", props=td_props)
-    ]
-    return style.set_table_styles(styles)
+styles = [
+dict(selector="th", props=th_props),
+dict(selector="td", props=td_props)
+]
 
-def set_format(style):    
-    return style.set_precision(1)
+def custom_format(x):
+    return '{:.1f}'.format(x) if isinstance(x, float) else str(x)
 
 hide_table_row_index = """
 <style>
@@ -136,14 +134,13 @@ tbody th {display:none}
 """
 
 # 小数点以下2桁まで表示
-pd.options.display.float_format = "{:.2f}".format
+
 col1,col2,col3,col4,col5 = st.columns(5)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime1)
-
-    # st.table(ItaResize(df.loc[ShowedTime1]).pipe(set_format).pipe(set_style))
+    st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).format(custom_format))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
 with col2:
@@ -154,7 +151,7 @@ with col3:
     ShowedTime3 = "2024-05-22 09:10:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
     # st.table(ItaResize(df.loc[ShowedTime3]).pipe(set_style))
-    #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles))
+    #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
 
 with col4:
     ShowedTime4 = "2024-05-22 09:15:00"
