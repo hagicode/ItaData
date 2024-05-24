@@ -5,6 +5,7 @@ import numpy as np
 import glob
 import pathlib
 from datetime import datetime
+from datetime import timedelta
 import os
 
 @st.cache_data
@@ -26,18 +27,14 @@ df = pd.read_parquet(p)
 date_str = st.text_input("日付()","240522")
 time_str = st.select_slider(
     "板データ時刻",
-    options=["08:55","09:00","09:05", "09:10","09:15","09:20:00","09:25:00","09:30:00","09:35:00","09:40:00","09:45:00","09:50:00","09:55:00","10:00:00"])
-st.write(date_str,time_str)
+    options=["08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
 time = datetime.strptime(time_str, '%H:%M').time()
-st.write(date,time)
 
 # 日付と時間を結合してdatetimeオブジェクトを作成
 datetime_obj = datetime.combine(date, time)
-
-st.write(datetime_obj)
 
 
 #update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
@@ -155,27 +152,34 @@ tbody th {display:none}
 col1,col2,col3,col4,col5 = st.columns(5)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
-    ShowedTime1 = "2024-05-22 09:00:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime1)
-    st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).format(custom_format))
-    #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
+    ShowedTime1 = datetime_obj - timedelta(minutes=105)
+    try:
+        st.write("銘柄コード：",code,"時刻",ShowedTime1)
+        st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).format(custom_format))
+        #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
+    except:
+        st.write("銘柄コード：",code,"時刻:","時刻データなし")
 
 with col2:
-    ShowedTime2 = "2024-05-22 09:05:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime2)
-    st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles).format(custom_format))
+    try:
+        ShowedTime2 = datetime_obj - timedelta(minutes=5)
+        st.write("銘柄コード：",code,"時刻",ShowedTime2)
+        st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles).format(custom_format))
+    except:
+        st.write("銘柄コード：",code,"時刻:","時刻データなし")
+
 with col3:
-    ShowedTime3 = "2024-05-22 09:10:00"
+    ShowedTime3 = datetime_obj
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
     st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
     #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
 
 with col4:
-    ShowedTime4 = "2024-05-22 09:15:00"
+    ShowedTime4 = datetime_obj + timedelta(minutes=5)
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
     st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles).format(custom_format))
 with col5:
-    ShowedTime5 = "2024-05-22 09:20:00"
+    ShowedTime5 = datetime_obj + timedelta(minutes=10)
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
     st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles).format(custom_format))
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
