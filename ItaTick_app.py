@@ -30,13 +30,83 @@ df = pd.read_parquet(p)
 # df = pd.read_parquet(p)
 # #df_Ita = df.loc["1301"].loc["2024-05-22 09:50:00"]
 
+#関数化
+def ItaResize(df,ita_num=5):
+    import numpy as np
+    import pandas as pd
+
+    df_Ita = df.copy()
+    if df_Ita["値段"].apply(lambda x: x.is_integer()).all():
+        df_Ita["値段"] = df_Ita["値段"].astype(int)
+    df_market = pd.DataFrame(df_Ita.loc[-1000].replace(-1000,"成行")).T
+    df_Ita_ = df_Ita.iloc[1:]
+    market_diff = (df_market["買数量"]-df_market["売数量"]).iloc[0]
+
+    # 初期化
+    ask_center = df_Ita_["売数量"].dropna(how = "any").index[-1]
+    bid_center = df_Ita_["買数量"].dropna(how = "any").index[0]
+
+    if len(df_Ita_.dropna(how = "any"))>0 :
+        first = df_Ita_.dropna(how = "any").index[0]
+        end = df_Ita_.dropna(how = "any").index[-1]
+        df_w = df_Ita_.loc[first:end].copy()
+        if market_diff>0:
+            df_w.loc[first,"買数量"] += market_diff
+        else:
+            df_w.loc[end,"売数量"] += abs(market_diff)
+
+        for x in range (first,end):
+            print(x,df_w['値段'].loc[x])
+            if df_w['売数量'].loc[x:end].sum() > df_w['買数量'].loc[first:x].sum() and df_w['売数量'].loc[x+1:end].sum() < df_w['買数量'].loc[first:x+1].sum():
+
+                print("板中心値：",df_w['値段'].loc[x],",x=",x)
+                print("[中心よりも上(x)]  売数量:",df_w['売数量'].loc[x:end].sum(),"買数量:",df_w['買数量'].loc[first:x].sum())
+                print("[中心よりも下(x+1)]売数量:",df_w['売数量'].loc[x+1:end].sum(),"買数量:",df_w['買数量'].loc[first:x+1].sum())
+            ask_center = x
+            bid_center = x+1
+
+    #板が20本の時
+    ask_max = ask_center-(ita_num-1)
+    bid_max = bid_center+(ita_num-1)
+
+    ask_over = df_Ita_.iloc[:ask_max]["売数量"].sum()
+    ask_over_order = df_Ita_.iloc[:ask_max]["売件数"].sum()
+    bid_over = df_Ita_.iloc[bid_max:]["買数量"].sum()
+    bid_over_order = df_Ita_.iloc[bid_max:]["買件数"].sum()
+
+
+    # 一番上に追加する行を定義します(OVER)
+    top_row = pd.DataFrame({
+        '売件数': [ask_over_order],
+        '売数量': [ask_over],
+        '値段': ["OVER"],
+        '買数量': [np.nan],
+        '買件数': [np.nan]
+    }, index=[-1])
+
+    # 一番下に追加する行を定義します(UNDER)
+    bottom_row = pd.DataFrame({
+        '売件数': [np.nan],
+        '売数量': [np.nan],
+        '値段': ["UNDER"],
+        '買数量': [bid_over],
+        '買件数': [bid_over_order]
+    }, index=[1000])
+
+    df___ = pd.concat([df_market,top_row, df_Ita_.iloc[ask_max:bid_max], bottom_row])
+    df____ = df___.fillna(-1)
+    df_____ = df____.astype({"売数量":int,"買数量":int,"売件数":int,"買件数":int}).replace(-1,"")
+    
+    return df_____
+
+
 col1,col2,col3,col4,col5,col6 = st.columns(6)
-col1.dataframe(df.loc["2024-05-22 09:00:00"])
-col2.dataframe(df.loc["2024-05-22 09:05:00"])
-col3.dataframe(df.loc["2024-05-22 09:10:00"])
-col4.dataframe(df.loc["2024-05-22 09:15:00"])
-col5.dataframe(df.loc["2024-05-22 09:20:00"])
-col6.dataframe(df.loc["2024-05-22 09:25:00"])
+col1.dataframe(ItaResize(df.loc["2024-05-22 09:00:00"]))
+col2.dataframe(ItaResize(df.loc["2024-05-22 09:05:00"]))
+col3.dataframe(ItaResize(df.loc["2024-05-22 09:10:00"]))
+col4.dataframe(ItaResize(df.loc["2024-05-22 09:15:00"]))
+col5.dataframe(ItaResize(df.loc["2024-05-22 09:20:00"]))
+col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]))
 
 # import streamlit as st
 # from memory_profiler import memory_usage
