@@ -185,7 +185,7 @@ fig.update_yaxes(title_text="Buy/Sell", secondary_y=True, row=2, col=1)
 fig.update(layout_xaxis_rangeslider_visible=False) #追加
 
 # グラフのサイズを設定
-fig.update_layout(autosize=False, width=2000, height=500)
+fig.update_layout(autosize=False, width=1500, height=500)
 
 
 col1__, col2__ = st.columns([3, 1])
