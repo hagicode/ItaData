@@ -128,7 +128,7 @@ th_props1 = [
 ('font-size', '13px'),
 ('text-align', 'center'),
 ('font-weight', 'bold'),
-('color', '#6d6d6d'),
+('color', '#c8c8c8'),
 ('background-color', '#f7ffff')
 ]
                             
@@ -180,7 +180,7 @@ with col1:
     ShowedTime1 = datetime_obj - timedelta(minutes=10)
     try:
         st.write("銘柄コード：",code,"時刻",ShowedTime1)
-        st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles1).format(custom_format))
         #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
     except:
         st.write("時刻データなし")
@@ -189,24 +189,24 @@ with col2:
     try:
         ShowedTime2 = datetime_obj - timedelta(minutes=5)
         st.write("銘柄コード：",code,"時刻",ShowedTime2)
-        st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles1).format(custom_format))
     except:
         st.write("時刻データなし")
 
 with col3:
     ShowedTime3 = datetime_obj
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
-    st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles2).format(custom_format))
     #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
 
 with col4:
     ShowedTime4 = datetime_obj + timedelta(minutes=5)
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
-    st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles1).format(custom_format))
 with col5:
     ShowedTime5 = datetime_obj + timedelta(minutes=10)
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
-    st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles1).format(custom_format))
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
 # import streamlit as st
