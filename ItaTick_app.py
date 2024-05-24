@@ -280,7 +280,8 @@ th_props1 = [
 ]
                             
 td_props1 = [
-('font-size', tdFont)
+('font-size', tdFont),
+('text-align', 'right')
 ]
                                 
 styles1 = [
@@ -298,7 +299,9 @@ th_props2 = [
 ]
                             
 td_props2 = [
-('font-size', tdFont)
+('font-size', tdFont),
+('text-align', 'right')
+
 ]
                                 
 styles2 = [
