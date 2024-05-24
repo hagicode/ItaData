@@ -32,10 +32,7 @@ with col2_:
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
-time = datetime.strptime(time_str, '%H:%M').time()
 
-# 日付と時間を結合してdatetimeオブジェクトを作成
-datetime_obj = datetime.combine(date, time)
 
 #ファイル検索
 l1_in = [s for s in l1 if date_str in s][0]
@@ -201,7 +198,9 @@ with col2__:
         "板データ時刻",
         options=["08:45","08:50","08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
 
-
+time = datetime.strptime(time_str, '%H:%M').time()
+# 日付と時間を結合してdatetimeオブジェクトを作成
+datetime_obj = datetime.combine(date, time)
 
 
 
