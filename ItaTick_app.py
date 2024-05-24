@@ -67,16 +67,16 @@ with col2_:
     st.write("その他設定")
     ItaSize_str = st.text_input("板サイズ(携帯版20行)","10")
     ItaSize_str_ = round(int(ItaSize_str)/2)
-    FontSize_str = st.radio('板の文字サイズ',['小', '中',"大"])
+    FontSize_str = st.radio('板の文字サイズ',['小', '中',"大"],horizontal=True)
     if FontSize_str == "小":
-        thFont = '12px'
-        tdFont = '10px'
+        thFont = '11px'
+        tdFont = '9px'
     elif FontSize_str == "中":
         thFont = '13px'
         tdFont = '11px'
     elif FontSize_str == "大":
-        thFont = '14px'
-        tdFont = '12px'            
+        thFont = '15px'
+        tdFont = '13px'            
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
 
