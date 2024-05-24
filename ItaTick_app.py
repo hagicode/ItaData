@@ -16,14 +16,49 @@ import os
 #github
 st.set_page_config(layout="wide")
 
+import neologdn
+def format_text(text):
+  text = neologdn.normalize(text)
+  return text
+
+
 #OHLC
 l1 = sorted(glob.glob('files/*OHLC_all.parquet', recursive=True))
 #Ita
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
 
+# Github
+# https://www.jpx.co.jp/markets/statistics-equities/misc/01.html
+url = 'https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls'
+df_jpx = pd.read_excel(url)
+df_jpx = df_jpx.iloc[:, [1, 2, 3, 9]]
+database = df_jpx[df_jpx["市場・商品区分"] != "ETF・ETN"]
+database_org = database.astype(str)
+
 col1_,col2_ = st.columns(2)
 with col1_:
-    code = st.text_input("銘柄コード","1301")
+    DB_serch = database_org.copy()
+    DB_serch["銘柄名"] = [format_text(txt).casefold() for txt in DB_serch["銘柄名"]]
+
+    with st.form(key='form1'):
+        st.cache_data.clear()
+
+        input_txt = st.text_input('銘柄コードを入力 or 部分一致の検索', '8058')
+        format_input = format_text(input_txt).casefold()
+        
+        DB_result = database[(DB_serch['コード'].str.contains(str(format_input)))|(DB_serch['銘柄名'].str.contains(str(format_input)))]
+        db_result_org = database_org.loc[DB_result.index]
+        st.table(db_result_org)
+        if len(db_result_org) == 0:
+            st.write("一致する銘柄はありません")
+        if len(db_result_org) > 1:
+            st.write("1銘柄になるように入力してください")
+        if len(db_result_org) == 1:
+            symbols = db_result_org.iloc[0,0]
+            name = db_result_org.iloc[0,1]
+            st.write(f"[・TradingViewで開く](https://jp.tradingview.com/chart/?symbol=TSE%3A{symbols})")
+            st.write(f"[・株探で確認する](https://kabutan.jp/stock/chart?code={symbols})")
+    code = symbols
 
 with col2_:
     # 文字列を日付と時間に分割
