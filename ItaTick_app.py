@@ -100,13 +100,13 @@ def ItaResize(df,ita_num=5):
     return df_____
 
 
-col1,col2,col3,col4,col5,col6 = st.columns(6)
-col1.dataframe(ItaResize(df.loc["2024-05-22 09:00:00"]),hide_index=True, width=20, height=20)
-col2.dataframe(ItaResize(df.loc["2024-05-22 09:05:00"]),hide_index=True, width=30, height=50)
-col3.dataframe(ItaResize(df.loc["2024-05-22 09:10:00"]),hide_index=True, width=40, height=100)
-col4.dataframe(ItaResize(df.loc["2024-05-22 09:15:00"]),hide_index=True, width=50, height=120)
-col5.dataframe(ItaResize(df.loc["2024-05-22 09:20:00"]),hide_index=True, width=80, height=130)
-col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
+col1,col2,col3,col4,col5 = st.columns(5)
+col1.dataframe(ItaResize(df.loc["2024-05-22 09:00:00"]),hide_index=True, width=1, height=400)
+col2.dataframe(ItaResize(df.loc["2024-05-22 09:05:00"]),hide_index=True, width=120, height=450)
+col3.dataframe(ItaResize(df.loc["2024-05-22 09:10:00"]),hide_index=True, width=150, height=500)
+col4.dataframe(ItaResize(df.loc["2024-05-22 09:15:00"]),hide_index=True, width=50, height=600)
+col5.dataframe(ItaResize(df.loc["2024-05-22 09:20:00"]),hide_index=True, width=80, height=700)
+#col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
 # import streamlit as st
 # from memory_profiler import memory_usage
