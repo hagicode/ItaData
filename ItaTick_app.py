@@ -31,7 +31,7 @@ with col2_:
 with col3_:
     time_str = st.select_slider(
         "板データ時刻",
-        options=["08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
+        options=["08:45","08:50","08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
@@ -129,7 +129,7 @@ th_props1 = [
 ('text-align', 'center'),
 ('font-weight', 'bold'),
 ('color', '#6d6d6d'),
-('background-color', '#c8c8c8')
+('background-color', '#e6e6e6')
 ]
                             
 td_props1 = [
