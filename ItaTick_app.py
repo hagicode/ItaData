@@ -64,6 +64,7 @@ with col2_:
     # 文字列を日付と時間に分割
     date_str = st.text_input("日付(yymmdd)","240522")
 
+submit = st.form_submit_button("実行")
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
