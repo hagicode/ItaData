@@ -310,7 +310,7 @@ dict(selector="td", props=td_props2)
 
 
 def custom_format(x):
-    return '{:.1f}'.format(x) if isinstance(x, float) else str(x)
+    return '{:,.1f}'.format(x) if isinstance(x, float) else str(x)
 
 hide_table_row_index = """
 <style>
