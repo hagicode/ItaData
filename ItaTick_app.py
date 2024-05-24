@@ -21,7 +21,7 @@ l1 = sorted(glob.glob('files/*OHLC_all.parquet', recursive=True))
 #Ita
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
 
-col1_,col2_,col3_ = st.columns(3)
+col1_,col2_ = st.columns(2)
 with col1_:
     code = st.text_input("銘柄コード","1301")
 
@@ -29,10 +29,6 @@ with col2_:
     # 文字列を日付と時間に分割
     date_str = st.text_input("日付(yymmdd)","240522")
 
-with col3_:
-    time_str = st.select_slider(
-        "板データ時刻",
-        options=["08:45","08:50","08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
@@ -192,10 +188,19 @@ fig.update_yaxes(title_text="Buy/Sell", secondary_y=True, row=2, col=1)
 fig.update(layout_xaxis_rangeslider_visible=False) #追加
 
 # グラフのサイズを設定
-fig.update_layout(autosize=False, width=1500, height=750)
+fig.update_layout(autosize=False, width=2000, height=500)
 
+
+col1__, col2__ = st.columns([3, 1])
+with col1__:
 # Streamlitでグラフを表示
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
+
+with col2__:
+    time_str = st.select_slider(
+        "板データ時刻",
+        options=["08:45","08:50","08:55","09:00","09:05", "09:10","09:15","09:20","09:25","09:30","09:35","09:40","09:45","09:50","09:55","10:00"])
+
 
 
 
