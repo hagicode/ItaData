@@ -64,7 +64,19 @@ with col1_:
 with col2_:
     # 文字列を日付と時間に分割
     date_str = st.text_input("日付(yymmdd)","240522")
-
+    st.write("その他設定")
+    ItaSize_str = st.text_input("板サイズ(携帯版20行)","10")
+    ItaSize_str_ = round(ItaSize_str/2)
+    FontSize_str = st.radio('板の文字サイズ',['小', '中',"大"])
+    if FontSize_str == "小":
+        thFont = '12px'
+        tdFont = '10px'
+    elif FontSize_str == "中":
+        thFont = '13px'
+        tdFont = '11px'
+    elif FontSize_str == "大":
+        thFont = '14px'
+        tdFont = '12px'            
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
 
@@ -260,7 +272,7 @@ datetime_obj = datetime.combine(date, time)
 
 # style
 th_props1 = [
-('font-size', '13px'),
+('font-size', thFont),
 ('text-align', 'center'),
 ('font-weight', 'bold'),
 ('color', '#6d6d6d'),
@@ -268,7 +280,7 @@ th_props1 = [
 ]
                             
 td_props1 = [
-('font-size', '11px')
+('font-size', tdFont)
 ]
                                 
 styles1 = [
@@ -278,7 +290,7 @@ dict(selector="td", props=td_props1)
 
 # style
 th_props2 = [
-('font-size', '13px'),
+('font-size', thFont),
 ('text-align', 'center'),
 ('font-weight', 'bold'),
 ('color', '#6d6d6d'),
@@ -286,7 +298,7 @@ th_props2 = [
 ]
                             
 td_props2 = [
-('font-size', '11px')
+('font-size', tdFont)
 ]
                                 
 styles2 = [
@@ -315,7 +327,7 @@ with col1:
     ShowedTime1 = datetime_obj - timedelta(minutes=10)
     try:
         st.write("銘柄コード：",code,"時刻",ShowedTime1)
-        st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles1).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime1],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
         #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
     except:
         st.write("時刻データなし")
@@ -324,24 +336,24 @@ with col2:
     try:
         ShowedTime2 = datetime_obj - timedelta(minutes=5)
         st.write("銘柄コード：",code,"時刻",ShowedTime2)
-        st.table(ItaResize(df.loc[ShowedTime2]).style.set_table_styles(styles1).format(custom_format))
+        st.table(ItaResize(df.loc[ShowedTime2],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
     except:
         st.write("時刻データなし")
 
 with col3:
     ShowedTime3 = datetime_obj
     st.write("銘柄コード：",code,"時刻",ShowedTime3)
-    st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles2).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime3],ItaSize_str_).style.set_table_styles(styles2).format(custom_format))
     #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles).format(custom_format))
 
 with col4:
     ShowedTime4 = datetime_obj + timedelta(minutes=5)
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
-    st.table(ItaResize(df.loc[ShowedTime4]).style.set_table_styles(styles1).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime4],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
 with col5:
     ShowedTime5 = datetime_obj + timedelta(minutes=10)
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
-    st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles1).format(custom_format))
+    st.table(ItaResize(df.loc[ShowedTime5],ItaSize_str_).style.set_table_styles(styles1).format(custom_format))
 
 
 
