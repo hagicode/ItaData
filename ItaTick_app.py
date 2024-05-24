@@ -137,7 +137,7 @@ with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime1)
 
-    st.table(ItaResize(df.loc[ShowedTime1]).style.set_precision(1).set_table_styles(styles))
+    st.table(ItaResize(df.loc[ShowedTime1]).style.set_precision(1).style.set_table_styles(styles))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
 with col2:
