@@ -125,10 +125,11 @@ tbody th {display:none}
 
 
 col1,col2,col3,col4,col5 = st.columns(5)
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
     ShowedTime1 = "2024-05-22 09:00:00"
     st.write("銘柄コード：",code,"時刻",ShowedTime1)
-    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
     st.table(ItaResize(df.loc[ShowedTime1]).style.set_table_styles(styles))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
