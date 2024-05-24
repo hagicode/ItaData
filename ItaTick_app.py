@@ -39,23 +39,23 @@ l1_in = [s for s in l1 if date_str in s][0]
 #l2_in = [s for s in l2 if code in s][0]
 
 if str(code).startswith('1'):
-    filename = [f for f in l2 if f.startswith('1') and date_str in filename][0]
+    filename = [f for f in l2 if "1000s" in f and date_str in f][0]
 elif str(code).startswith('2'):
-    filename = [f for f in l2 if f.startswith('2') and date_str in filename][0]
+    filename = [f for f in l2 if "2000s" in f and date_str in f][0]
 elif str(code).startswith('3'):
-    filename = [f for f in l2 if f.startswith('3') and date_str in filename][0]
+    filename = [f for f in l2 if "3000s" in f and date_str in f][0]
 elif str(code).startswith('4'):
-    filename = [f for f in l2 if f.startswith('4') and date_str in filename][0]
+    filename = [f for f in l2 if "4000s" in f and date_str in f][0]
 elif str(code).startswith('5'):
-    filename = [f for f in l2 if f.startswith('5') and date_str in filename][0]
+    filename = [f for f in l2 if "5000s" in f and date_str in f][0]
 elif str(code).startswith('6'):
-    filename = [f for f in l2 if f.startswith('6') and date_str in filename][0]
+    filename = [f for f in l2 if "6000s" in f and date_str in f][0]
 elif str(code).startswith('7'):
-    filename = [f for f in l2 if f.startswith('7') and date_str in filename][0]
+    filename = [f for f in l2 if "7000s" in f and date_str in f][0]
 elif str(code).startswith('8'):
-    filename = [f for f in l2 if f.startswith('8') and date_str in filename][0]
+    filename = [f for f in l2 if "8000s" in f and date_str in f][0]
 elif str(code).startswith('9'):
-    filename = [f for f in l2 if f.startswith('9') and date_str in filename][0]    
+    filename = [f for f in l2 if "9000s" in f and date_str in f][0]    
 
 #OHLC
 p1 = pathlib.Path(l1_in)
