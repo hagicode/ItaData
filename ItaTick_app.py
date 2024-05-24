@@ -36,10 +36,10 @@ def ItaResize(df,ita_num=5):
     import pandas as pd
 
     df_Ita = df.copy()
-    if df_Ita["値段"].apply(lambda x: x.is_integer()).all():
-        df_Ita["値段"] = df_Ita["値段"].astype(int)
     df_market = pd.DataFrame(df_Ita.loc[-1000].replace(-1000,"成行")).T
     df_Ita_ = df_Ita.iloc[1:]
+    if df_Ita_["値段"].apply(lambda x: x.is_integer()).all():
+        df_Ita_["値段"] = df_Ita_["値段"].astype(int)
     market_diff = (df_market["買数量"]-df_market["売数量"]).iloc[0]
 
     # 初期化
