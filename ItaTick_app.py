@@ -101,12 +101,12 @@ def ItaResize(df,ita_num=5):
 
 
 col1,col2,col3,col4,col5,col6 = st.columns(6)
-col1.dataframe(ItaResize(df.loc["2024-05-22 09:00:00"]))
-col2.dataframe(ItaResize(df.loc["2024-05-22 09:05:00"]))
-col3.dataframe(ItaResize(df.loc["2024-05-22 09:10:00"]))
-col4.dataframe(ItaResize(df.loc["2024-05-22 09:15:00"]))
-col5.dataframe(ItaResize(df.loc["2024-05-22 09:20:00"]))
-col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]))
+col1.dataframe(ItaResize(df.loc["2024-05-22 09:00:00"]),hide_index=True)
+col2.dataframe(ItaResize(df.loc["2024-05-22 09:05:00"]),hide_index=True)
+col3.dataframe(ItaResize(df.loc["2024-05-22 09:10:00"]),hide_index=True)
+col4.dataframe(ItaResize(df.loc["2024-05-22 09:15:00"]),hide_index=True)
+col5.dataframe(ItaResize(df.loc["2024-05-22 09:20:00"]),hide_index=True)
+col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True)
 
 # import streamlit as st
 # from memory_profiler import memory_usage
