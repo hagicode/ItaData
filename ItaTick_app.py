@@ -140,20 +140,20 @@ pd.options.display.float_format = "{:.2f}".format
 col1,col2,col3,col4,col5 = st.columns(5)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
-    ShowedTime1 = "2024-05-22 09:00:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime1)
+    # ShowedTime1 = "2024-05-22 09:00:00"
+    # st.write("銘柄コード：",code,"時刻",ShowedTime1)
 
-    st.table(ItaResize(df.loc[ShowedTime1]).pipe(set_format).pipe(set_style))
+    # st.table(ItaResize(df.loc[ShowedTime1]).pipe(set_format).pipe(set_style))
     #st.table(ItaResize(df.loc[ShowedTime1]),hide_index=True, height=480)
 
 with col2:
-    ShowedTime2 = "2024-05-22 09:05:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime2)
-    st.table(ItaResize(df.loc[ShowedTime2]).pipe(set_style))
+    # ShowedTime2 = "2024-05-22 09:05:00"
+    # st.write("銘柄コード：",code,"時刻",ShowedTime2)
+    # st.table(ItaResize(df.loc[ShowedTime2]).pipe(set_style))
 with col3:
-    ShowedTime3 = "2024-05-22 09:10:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime3)
-    st.table(ItaResize(df.loc[ShowedTime3]).pipe(set_style))
+    # ShowedTime3 = "2024-05-22 09:10:00"
+    # st.write("銘柄コード：",code,"時刻",ShowedTime3)
+    # st.table(ItaResize(df.loc[ShowedTime3]).pipe(set_style))
     #st.table(ItaResize(df.loc[ShowedTime3]).style.set_table_styles(styles))
 
 with col4:
@@ -161,9 +161,9 @@ with col4:
     st.write("銘柄コード：",code,"時刻",ShowedTime4)
     st.table(ItaResize(df.loc[ShowedTime4]).style.set_precision(1))
 with col5:
-    ShowedTime5 = "2024-05-22 09:20:00"
-    st.write("銘柄コード：",code,"時刻",ShowedTime5)
-    st.table(ItaResize(df.loc[ShowedTime5]).pipe(set_style))
+    # ShowedTime5 = "2024-05-22 09:20:00"
+    # st.write("銘柄コード：",code,"時刻",ShowedTime5)
+    # st.table(ItaResize(df.loc[ShowedTime5]).pipe(set_style))
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
 # import streamlit as st
