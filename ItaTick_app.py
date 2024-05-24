@@ -46,24 +46,30 @@ def ItaResize(df,ita_num=5):
     ask_center = df_Ita_["売数量"].dropna(how = "any").index[-1]
     bid_center = df_Ita_["買数量"].dropna(how = "any").index[0]
 
-    if len(df_Ita_.dropna(how = "any"))>0 :
-        first = df_Ita_.dropna(how = "any").index[0]
-        end = df_Ita_.dropna(how = "any").index[-1]
+    if ask_center >bid_center :
+
+        first = bid_center
+        end = ask_center
+
         df_w = df_Ita_.loc[first:end].copy()
         if market_diff>0:
             df_w.loc[first,"買数量"] += market_diff
         else:
             df_w.loc[end,"売数量"] += abs(market_diff)
 
-        for x in range (first,end):
-            print(x,df_w['値段'].loc[x])
+        for x in range (first,end+1):
+            #print(x,df_w['値段'].loc[x])
             if df_w['売数量'].loc[x:end].sum() > df_w['買数量'].loc[first:x].sum() and df_w['売数量'].loc[x+1:end].sum() < df_w['買数量'].loc[first:x+1].sum():
 
-                print("板中心値：",df_w['値段'].loc[x],",x=",x)
-                print("[中心よりも上(x)]  売数量:",df_w['売数量'].loc[x:end].sum(),"買数量:",df_w['買数量'].loc[first:x].sum())
-                print("[中心よりも下(x+1)]売数量:",df_w['売数量'].loc[x+1:end].sum(),"買数量:",df_w['買数量'].loc[first:x+1].sum())
-            ask_center = x
-            bid_center = x+1
+                # print("板中心値：",df_w['値段'].loc[x],",x=",x)
+                # print("[中心よりも上(x)]  売数量:",df_w['売数量'].loc[x:end].sum(),"買数量:",df_w['買数量'].loc[first:x].sum())
+                # print("[中心よりも下(x+1)]売数量:",df_w['売数量'].loc[x+1:end].sum(),"買数量:",df_w['買数量'].loc[first:x+1].sum())
+                ask_center = x
+                bid_center = x+1
+                break
+            else:
+                ask_center = first
+                bid_center = first+1
 
     #板が20本の時
     ask_max = ask_center-(ita_num-1)
