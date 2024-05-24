@@ -128,8 +128,8 @@ th_props1 = [
 ('font-size', '13px'),
 ('text-align', 'center'),
 ('font-weight', 'bold'),
-('color', '#c8c8c8'),
-('background-color', '#f7ffff')
+('color', '#6d6d6d'),
+('background-color', '#c8c8c8')
 ]
                             
 td_props1 = [
