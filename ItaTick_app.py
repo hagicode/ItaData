@@ -16,17 +16,18 @@ def load_dataframe(f_):
 #github
 st.set_page_config(layout="wide")
 
+#OHLC
+l1 = sorted(glob.glob('files/*OHLC_all.parquet', recursive=True))
+#Ita
 l2 = sorted(glob.glob('files/*.parquet', recursive=True))
+
 col1_,col2_,col3_ = st.columns(3)
 with col1_:
     code = st.text_input("銘柄コード","1301")
-    l_in = [s for s in l2 if code in s][0]
-    p = pathlib.Path(l_in)
-    df = pd.read_parquet(p)
 
 with col2_:
     # 文字列を日付と時間に分割
-    date_str = st.text_input("日付()","240522")
+    date_str = st.text_input("日付(yymmdd)","240522")
 
 with col3_:
     time_str = st.select_slider(
@@ -39,6 +40,18 @@ time = datetime.strptime(time_str, '%H:%M').time()
 
 # 日付と時間を結合してdatetimeオブジェクトを作成
 datetime_obj = datetime.combine(date, time)
+
+#ファイル検索
+l1_in = [s for s in l1 if date_str in s][0]
+l2_in = [s for s in l2 if code in s][0]
+
+#OHLC
+p1 = pathlib.Path(l1_in)
+df_ohlc = pd.read_parquet(p1).loc[code]
+
+#Ita
+p2 = pathlib.Path(l2_in)
+df = pd.read_parquet(p2)
 
 
 #update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
@@ -207,6 +220,81 @@ with col5:
     ShowedTime5 = datetime_obj + timedelta(minutes=10)
     st.write("銘柄コード：",code,"時刻",ShowedTime5)
     st.table(ItaResize(df.loc[ShowedTime5]).style.set_table_styles(styles1).format(custom_format))
+
+###チャート##
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+#日付一覧を取得
+d_all = pd.date_range(start=df_ohlc.index[0],end=df_ohlc.index[-1])
+
+#株価データの日付リストを取得
+d_obs = [d.strftime("%Y-%m-%d") for d in df_ohlc.index]
+
+# 株価データの日付データに含まれていない日付を抽出
+d_breaks = [d for d in d_all.strftime("%Y-%m-%d").tolist() if not d in d_obs]
+
+# figを定義（第二軸を追加）
+fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.05, row_width=[0.7, 0.7], x_title="Date",
+                    specs=[[{}], [{"secondary_y": True}]])
+
+# Candlestick
+fig.add_trace(
+    go.Candlestick(x=df_ohlc.index, open=df_ohlc["open"], high=df_ohlc["high"], low=df_ohlc["low"], close=df_ohlc["close"], showlegend=False),
+    row=1, col=1
+)
+
+# Volume
+fig.add_trace(
+    go.Bar(x=df_ohlc.index, y=df_ohlc["volume"], showlegend=False),
+    row=2, col=1
+)
+
+# Buy and Sell on secondary axis
+fig.add_trace(go.Scatter(x=df_ohlc.index, y=df_ohlc["buy"], name="buy", mode="lines"), secondary_y=True, row=2, col=1)
+fig.add_trace(go.Scatter(x=df_ohlc.index, y=df_ohlc["sell"], name="sell", mode="lines"), secondary_y=True, row=2, col=1)
+
+# Layout
+# fig.update_layout(
+#     title={
+#         "text": "トヨタ自動車(7203)の日足チャート",
+#         "y":0.9,
+#         "x":0.5,
+#     }
+# )
+
+fig.update_xaxes(
+    rangebreaks=[dict(values=d_breaks)], # 非営業日を非表示設定
+    tickformat='%Y/%m/%d' # 日付のフォーマット変更
+)
+
+# ラベル名の設定とフォーマット変更（カンマ区切り）
+fig.update_yaxes(separatethousands=True, title_text="株価", row=1, col=1)
+fig.update_yaxes(title_text="出来高", secondary_y=False, row=2, col=1)
+fig.update_yaxes(title_text="Buy/Sell", secondary_y=True, row=2, col=1)
+
+fig.update(layout_xaxis_rangeslider_visible=False) #追加
+
+# Streamlitでグラフを表示
+st.plotly_chart(fig)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #col6.dataframe(ItaResize(df.loc["2024-05-22 09:25:00"]),hide_index=True, width=100, height=150)
 
 # import streamlit as st
