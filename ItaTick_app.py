@@ -8,10 +8,10 @@ from datetime import datetime
 from datetime import timedelta
 import os
 
-@st.cache_data
-def load_dataframe(f_):
-    df = pd.read_parquet(f_)
-    return df
+# @st.cache_data
+# def load_dataframe(f_):
+#     df = pd.read_parquet(f_)
+#     return df
 
 #github
 st.set_page_config(layout="wide")
@@ -36,15 +36,34 @@ date = datetime.strptime(date_str, '%y%m%d').date()
 
 #ファイル検索
 l1_in = [s for s in l1 if date_str in s][0]
-l2_in = [s for s in l2 if code in s][0]
+#l2_in = [s for s in l2 if code in s][0]
+
+if str(code).startswith('1'):
+    filename = [f for f in l2 if f.startswith('1') and date_str in filename][0]
+elif str(code).startswith('2'):
+    filename = [f for f in l2 if f.startswith('2') and date_str in filename][0]
+elif str(code).startswith('3'):
+    filename = [f for f in l2 if f.startswith('3') and date_str in filename][0]
+elif str(code).startswith('4'):
+    filename = [f for f in l2 if f.startswith('4') and date_str in filename][0]
+elif str(code).startswith('5'):
+    filename = [f for f in l2 if f.startswith('5') and date_str in filename][0]
+elif str(code).startswith('6'):
+    filename = [f for f in l2 if f.startswith('6') and date_str in filename][0]
+elif str(code).startswith('7'):
+    filename = [f for f in l2 if f.startswith('7') and date_str in filename][0]
+elif str(code).startswith('8'):
+    filename = [f for f in l2 if f.startswith('8') and date_str in filename][0]
+elif str(code).startswith('9'):
+    filename = [f for f in l2 if f.startswith('9') and date_str in filename][0]    
 
 #OHLC
 p1 = pathlib.Path(l1_in)
 df_ohlc = pd.read_parquet(p1).loc[code]
 
 #Ita
-p2 = pathlib.Path(l2_in)
-df = pd.read_parquet(p2)
+p2 = pathlib.Path(filename)
+df = pd.read_parquet(p2).loc[code]
 
 
 #update_date = os.path.split(p)[1].replace("_df_dayIta_all.parquet","")
