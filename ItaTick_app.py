@@ -129,7 +129,8 @@ tbody th {display:none}
 </style>
 """
 
-
+# 小数点以下2桁まで表示
+pd.options.display.float_format = "{:.2f}".format
 col1,col2,col3,col4,col5 = st.columns(5)
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 with col1:
