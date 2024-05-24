@@ -31,7 +31,7 @@ st.write(date_str,time_str)
 
 # 日付と時間を適切な形式に変換
 date = datetime.strptime(date_str, '%y%m%d').date()
-time = datetime.strptime(time_str, '%H%M').time()
+time = datetime.strptime(time_str, '%H:%M').time()
 st.write(date,time)
 
 # 日付と時間を結合してdatetimeオブジェクトを作成
